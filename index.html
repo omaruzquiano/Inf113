@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab: Omar Uzquiano Villacorta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        header {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+        nav {
+            background-color: #444;
+            color: white;
+            width: 200px;
+            position: fixed;
+            height: 100vh;
+            padding: 1em;
+            box-sizing: border-box;
+            top: 0;
+            left: 0;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav li {
+            margin: 1em 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.5em;
+            border-radius: 3px;
+        }
+        nav a:hover {
+            background-color: #575757;
+        }
+        aside {
+            background-color: #444;
+            color: white;
+            width: 200px;
+            position: fixed;
+            height: 100vh;
+            padding: 1em;
+            box-sizing: border-box;
+            top: 0;
+            right: 0;
+        }
+        aside ul {
+            list-style: none;
+            padding: 0;
+        }
+        aside li {
+            margin: 1em 0;
+        }
+        aside a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.5em;
+            border-radius: 3px;
+        }
+        aside a:hover {
+            background-color: #575757;
+        }
+        main {
+            margin: 0 220px;
+            padding: 1em;
+            position: relative;
+        }
+        .task {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 3px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        input, select {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+        .output {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-left: 4px solid #007BFF;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        footer {
+            background-color: #444;
+            color: white;
+            text-align: center;
+            padding: 1em;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Universitatio: Omar Uzquiano Villacorta</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#fibonacci">Serie de Fibonacci</a></li>
+            <li><a href="#factorial">Factoriales</a></li>
+            <li><a href="#rotar">Rotar Números</a></li>
+            <li><a href="#capicua">Verificar Capicúa</a></li>
+            <li><a href="#calculadora">Calculadora</a></li>
+        </ul>
+    </nav>
+    <aside>
+        <ul>
+            <li><a href="#">Menu derecho 1</a></li>
+            <li><a href="#">Menu derecho 2</a></li>
+            <li><a href="#">Menu derecho 3</a></li>
+        </ul>
+    </aside>
+    <main>
+        <section id="fibonacci" class="task">
+            <h2>Serie de Fibonacci</h2>
+            <input type="number" id="fiboInput" placeholder="Introduce N">
+            <button onclick="generarFibonacci()">Generar</button>
+            <div id="outputFibo" class="output"></div>
+        </section>
+
+        <section id="factorial" class="task">
+            <h2>Factorial y Suma</h2>
+            <input type="number" id="factorialInput" placeholder="Introduce N">
+            <button onclick="calcularFactorial()">Calcular</button>
+            <div id="outputFactorial" class="output"></div>
+        </section>
+
+        <section id="rotar" class="task">
+            <h2>Rotar Números</h2>
+            <input type="text" id="numeroInput" placeholder="Introduce un número">
+            <button onclick="rotarNumero()">Rotar</button>
+            <div id="outputRotar" class="output"></div>
+        </section>
+
+        <section id="capicua" class="task">
+            <h2>Verificar Capicúa</h2>
+            <input type="number" id="capicuaInput" placeholder="Introduce un número">
+            <button onclick="verificarCapicua()">Verificar</button>
+            <div id="outputCapicua" class="output"></div>
+        </section>
+
+        <section id="calculadora" class="task">
+            <h2>Calculadora</h2>
+            <input type="number" id="numA" placeholder="Número A">
+            <input type="number" id="numB" placeholder="Número B">
+            <select id="operacion">
+                <option value="+">Suma</option>
+                <option value="-">Resta</option>
+                <option value="*">Multiplicación</option>
+                <option value="/">División</option>
+                <option value="^">Potencia</option>
+            </select>
+            <button onclick="calculadora()">Calcular</button>
+            <div id="outputCalc" class="output"></div>
+        </section>
+    </main>
+    <footer>
+        <p>Omar Uzquiano Villacorta</p>
+    </footer>
+    <script>
+        function generarFibonacci() {
+            const N = parseInt(document.getElementById('fiboInput').value);
+            if (isNaN(N) || N <= 0) return alert("Por favor, introduce un N válido.");
+            let a = 0, b = 1, fibo = [a, b];
+            for (let i = 2; i < N; i++) {
+                let next = a + b;
+                fibo.push(next);
+                a = b;
+                b = next;
+            }
+            document.getElementById('outputFibo').innerText = fibo.join(', ');
+        }
+
+        function calcularFactorial() {
+            const N = parseInt(document.getElementById('factorialInput').value);
+            let factorial = 1, suma = 0;
+            for (let i = 1; i <= N; i++) {
+                factorial *= i;
+                suma += factorial;
+            }
+            document.getElementById('outputFactorial').innerText = `Factorial: ${factorial}, Suma: ${suma}`;
+        }
+
+        function rotarNumero() {
+            const num = document.getElementById('numeroInput').value;
+            if (!num) return alert("Introduce un número válido.");
+            const rotado = num.slice(1) + num[0];
+            document.getElementById('outputRotar').innerText = `Rotado: ${rotado}`;
+        }
+
+        function verificarCapicua() {
+            const num = document.getElementById('capicuaInput').value;
+            const esCapicua = num === num.split('').reverse().join('');
+            document.getElementById('outputCapicua').innerText = esCapicua ? 'Es Capicúa' : 'No es Capicúa';
+        }
+
+        function calculadora() {
+            const a = parseFloat(document.getElementById('numA').value);
+            const b = parseFloat(document.getElementById('numB').value);
+            const op = document.getElementById('operacion').value;
+            let resultado;
+            if (op === '/' && b === 0) return alert("División por cero no permitida.");
+            switch (op) {
+                case '+': resultado = a + b; break;
+                case '-': resultado = a - b; break;
+                case '*': resultado = a * b; break;
+                case '/': resultado = a / b; break;
+                case '^': resultado = Math.pow(a, b); break;
+            }
+            document.getElementById('outputCalc').innerText = `Resultado: ${resultado}`;
+        }
+    </script>
+</body>
+</html>
